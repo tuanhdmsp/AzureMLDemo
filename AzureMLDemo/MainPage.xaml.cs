@@ -64,6 +64,7 @@ namespace AzureMLDemo
             }
         }
 
+
         private void ToggleCell(Rectangle cell)
         {
             cell.Opacity = (cell.Opacity < 1.0) ? 1.0 : _opacity;
@@ -155,9 +156,9 @@ namespace AzureMLDemo
                     GlobalParameters = new Dictionary<string, string>() { }
                 };
 
-                const string key = "api_key";
+                const string key = "W6S7VJbD0VnaSfxxhb3i7nbjbfKcUfnm/MdpkkBohmr+L0U4YSCovbXRzm+D+V2tp5NFLPG7hCPtcYfeSXqeXg==";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", key);
-                client.BaseAddress = new Uri("web_service_url");
+                client.BaseAddress = new Uri("https://ussouthcentral.services.azureml.net/workspaces/721231f6ba8b45048115874219448aaf/services/b4a56b4686214186ba75a38900a634ad/execute?api-version=2.0&details=true");
 
                 HttpResponseMessage response = await client.PostAsJsonAsync("", request).ConfigureAwait(false);
 
@@ -191,14 +192,7 @@ namespace AzureMLDemo
                 for (int col = 0; col < 8; col++)
                 {
                     int index = (row * 8) + col;
-                    if (((Rectangle)Cells.Children[index]).Opacity.Equals(1.0))
-                    {
-                        values[index] = "16";
-                    }
-                    else
-                    {
-                        values[index] = "0";
-                    }
+                    values[index] = ((Rectangle)Cells.Children[index]).Opacity == 1.0 ? "16" : "0";
                 }
             }
 
